@@ -4,6 +4,10 @@ cmake_minimum_required(VERSION 3.16)
 # Project Name and Version
 project(citygloom VERSION 0.0.0.1)
 
+# VS Project Properties
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT citygloom)
+
 # Set C++ Standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQURIED True)
