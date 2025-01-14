@@ -16,6 +16,6 @@ Here's a basic outline of how to build the project. This will not reflect every 
 
 1. Navigate to the root directory of the project.
 2. Create a `build` and enter directory.
-3. Type `cmake .. -G "GENERATOR"` where generator is replaced with your project type of choice (i.e. `"Visual Studio 17 2022"`).
+3. Type `cmake .."`.
 4. Open project.
 5. Run!
