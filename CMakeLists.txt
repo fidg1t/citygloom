@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQURIED True)
 include_directories(include)
 
 # Add Source Files
-file(GLOB_RECUR SRC_FILES src/*.cpp include/*.h)
+file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
 
 # Add the Executable
-add_exeutable(citygloom ${SRC_FILES})
+add_executable(citygloom ${SRC_FILES})
