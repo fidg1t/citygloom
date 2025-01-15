@@ -1,4 +1,4 @@
-libs/** linguist-vendored
+vendor/** linguist-vendored
 
 # Files
 *.h linguist-language=C++
