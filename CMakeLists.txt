@@ -25,3 +25,11 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
 add_executable(citygloom ${SRC_FILES})
 
 target_link_libraries(citygloom PRIVATE SDL3::SDL3)
+
+if(WIN32)
+    add_custom_command(
+        TARGET citygloom POST_BUILD
+        COMMAND "${CMAKE_COMMAND}" -E copy $<TARGET_FILE:SDL3::SDL3-shared> $<TARGET_FILE_DIR:citygloom>
+        VERBATIM
+    )
+endif()
