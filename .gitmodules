@@ -1,0 +1,3 @@
+[submodule "vendor/citygloom"]
+	path = vendor/citygloom
+	url = https://github.com/fidg1t/citygloom.git
