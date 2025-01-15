@@ -13,10 +13,20 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT citygloom)
 
 # Set C++ Standard
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQURIED True)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Include Directories for Headers (including libraries from the libs folder)
 include_directories(include)
+
+# Generate version.h from template
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/include/version.h.in" # Input template
+    "${CMAKE_CURRENT_BINARY_DIR}/version.h"           # Output file
+    @ONLY
+)
+
+# Add Include Directory for Generated Files
+include_directories("${CMAKE_CURRENT_BINARY_DIR}")
 
 # Add Source Files
 file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
@@ -24,8 +34,10 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
 # Add the Executable
 add_executable(citygloom ${SRC_FILES})
 
+# Link SDL3 Library
 target_link_libraries(citygloom PRIVATE SDL3::SDL3)
 
+# Copy SDL DLL on Windows
 if(WIN32)
     add_custom_command(
         TARGET citygloom POST_BUILD
