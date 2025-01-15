@@ -1,4 +1,4 @@
-# City Gloom  
+# Citygloom  
 City Gloom is a small game where you explore your apartment rooftop during a foggy morning.
 
 ## Goals
@@ -14,8 +14,8 @@ There are a few goals this project is meant to achieve. They are outlined as fol
 
 Here's a basic outline of how to build the project. This will not reflect every project manager and not every one is supported.
 
-1. Navigate to the root directory of the project.
-2. Create a `build` and enter directory.
-3. Type `cmake .."`.
+1. Clone the git repository using `git clone https://github.com/fidg1t/citygloom.git --recurse-submodules`.
+2. Navigate to the root directory of the project.
+3. Type `cmake -B build`.
 4. Open project.
 5. Run!
