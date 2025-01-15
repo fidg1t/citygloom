@@ -1,18 +1,21 @@
+#include <SDL3/SDL.h>
 #include <iostream>
 #include "version.h"
-#include <SDL3/SDL.h>
-#include <string>
+#include <window.h>
+
+static void PrintVersion()
+{
+  std::string version = std::to_string(CITYGLOOM_VERSION_MAJOR) + "." + std::to_string(CITYGLOOM_VERSION_MINOR) + "."
+    + std::to_string(CITYGLOOM_VERSION_PATCH) + "." + std::to_string(CITYGLOOM_VERSION_TWEAK);
+}
 
 int main(void)
 {
-  SDL_InitFlags flags = SDL_INIT_VIDEO;
-  SDL_Init(flags);
-  
-  std::string version = std::to_string(CITYGLOOM_VERSION_MAJOR) + "." + std::to_string(CITYGLOOM_VERSION_MINOR) + "."
-    + std::to_string(CITYGLOOM_VERSION_PATCH) + "." + std::to_string(CITYGLOOM_VERSION_TWEAK);
+  SDL_Init(SDL_INIT_VIDEO);
 
-  SDL_WindowFlags wFlags = 0;
-  SDL_Window* window = SDL_CreateWindow("Citygloom", 900, 600, wFlags);
+  Cloudscape::Thunder::Window window("Citygloom", 900, 600);
+
+  PrintVersion();
 
   bool gameIsRunning = true;
 
@@ -27,8 +30,6 @@ int main(void)
       }
     }
   }
-
-  SDL_DestroyWindow(window);
 
   SDL_Quit();
   return 0;

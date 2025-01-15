@@ -21,7 +21,7 @@ include_directories(include)
 # Generate version.h from template
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/include/version.h.in" # Input template
-    "${CMAKE_CURRENT_BINARY_DIR}/version.h"           # Output file
+    "${CMAKE_CURRENT_BINARY_DIR}/include/version.h"    # Output file
     @ONLY
 )
 
