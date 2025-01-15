@@ -11,13 +11,23 @@ static void PrintVersion()
 
 int main(void)
 {
+  // Init
   SDL_Init(SDL_INIT_VIDEO);
-
-  Cloudscape::Thunder::Window window("Citygloom", 900, 600);
-
   PrintVersion();
 
+  // Variable Creation
+  Cloudscape::Thunder::Window window("Citygloom", 900, 600);
+  SDL_Renderer* renderer = SDL_CreateRenderer(window.GetSDLWindow(), NULL); // leave NULL to let SDL choose best renderer
+
+  SDL_FRect rect;
+  rect.w = 100;
+  rect.h = 100;
+  rect.x = 900 / 2.0f - rect.w / 2.0f;
+  rect.y = 600 / 2.0f - rect.h / 2.0f;
+
   bool gameIsRunning = true;
+
+  // Setup Parameters
 
   while (gameIsRunning)
   {
@@ -28,8 +38,16 @@ int main(void)
       {
         gameIsRunning = false;
       }
+
+      SDL_SetRenderDrawColor(renderer, 20, 30, 30, SDL_ALPHA_OPAQUE);
+      SDL_RenderClear(renderer);
+      SDL_SetRenderDrawColor(renderer, 150, 0, 255, SDL_ALPHA_OPAQUE);
+      SDL_RenderFillRect(renderer, &rect);
+      SDL_RenderPresent(renderer);
     }
   }
+
+  SDL_DestroyRenderer(renderer);
 
   SDL_Quit();
   return 0;

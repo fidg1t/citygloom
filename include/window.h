@@ -14,6 +14,8 @@ namespace Cloudscape {
       Window(std::string name, int m_width, int m_height);
       ~Window();
 
+      inline SDL_Window* GetSDLWindow() const { return m_window; }
+
     private:
       SDL_Window* m_window;
       
