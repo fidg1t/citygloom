@@ -2,6 +2,7 @@
 #include <iostream>
 #include "version.h"
 #include <window.h>
+#include <glad/glad.h>
 
 static void PrintVersion()
 {
@@ -17,13 +18,11 @@ int main(void)
 
   // Variable Creation
   Cloudscape::Thunder::Window window("Citygloom", 900, 600);
-  SDL_Renderer* renderer = SDL_CreateRenderer(window.GetSDLWindow(), NULL); // leave NULL to let SDL choose best renderer
+  SDL_GLContext glContext = SDL_GL_CreateContext(window.GetSDLWindow());
 
-  SDL_FRect rect;
-  rect.w = 100;
-  rect.h = 100;
-  rect.x = 900 / 2.0f - rect.w / 2.0f;
-  rect.y = 600 / 2.0f - rect.h / 2.0f;
+  gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
+
+  SDL_GL_MakeCurrent(window.GetSDLWindow(), glContext);
 
   bool gameIsRunning = true;
 
@@ -39,15 +38,14 @@ int main(void)
         gameIsRunning = false;
       }
 
-      SDL_SetRenderDrawColor(renderer, 20, 30, 30, SDL_ALPHA_OPAQUE);
-      SDL_RenderClear(renderer);
-      SDL_SetRenderDrawColor(renderer, 150, 0, 255, SDL_ALPHA_OPAQUE);
-      SDL_RenderFillRect(renderer, &rect);
-      SDL_RenderPresent(renderer);
+      glClearColor(.5f, .0f, .6f, 1.f);
+      glGetError();
+      glClear(GL_COLOR_BUFFER_BIT);
+      SDL_GL_SwapWindow(window.GetSDLWindow());
     }
   }
 
-  SDL_DestroyRenderer(renderer);
+  SDL_GL_DestroyContext(glContext);
 
   SDL_Quit();
   return 0;
