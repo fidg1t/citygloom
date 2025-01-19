@@ -1,8 +1,9 @@
 # Minimum CMake Version Required
 cmake_minimum_required(VERSION 3.16)
 
-# Add SDL3 to Project
+# Add Libraries to Project
 add_subdirectory(vendor/SDL EXCLUDE_FROM_ALL)
+add_subdirectory(vendor/GLAD)
 
 # Project Name and Version
 project(citygloom VERSION 0.0.0.1)
@@ -26,7 +27,7 @@ configure_file(
 )
 
 # Add Include Directory for Generated Files
-include_directories("${CMAKE_CURRENT_BINARY_DIR}")
+include_directories("${CMAKE_CURRENT_BINARY_DIR}/include")
 
 # Add Source Files
 file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
@@ -34,8 +35,8 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
 # Add the Executable
 add_executable(citygloom ${SRC_FILES})
 
-# Link SDL3 Library
-target_link_libraries(citygloom PRIVATE SDL3::SDL3)
+# Link Libraries
+target_link_libraries(citygloom PRIVATE SDL3::SDL3 GLAD)
 
 # Copy SDL DLL on Windows
 if(WIN32)
