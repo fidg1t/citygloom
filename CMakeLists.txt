@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.16)
 # Add Libraries to Project
 add_subdirectory(vendor/SDL EXCLUDE_FROM_ALL)
 add_subdirectory(vendor/GLAD)
+add_subdirectory(vendor/glm)
 
 # Project Name and Version
 project(citygloom VERSION 0.0.0.1)
@@ -36,7 +37,7 @@ file(GLOB_RECURSE SRC_FILES src/*.cpp include/*.h)
 add_executable(citygloom ${SRC_FILES})
 
 # Link Libraries
-target_link_libraries(citygloom PRIVATE SDL3::SDL3 GLAD)
+target_link_libraries(citygloom PRIVATE SDL3::SDL3 GLAD PRIVATE glm::glm-header-only)
 
 # Copy SDL DLL on Windows
 if(WIN32)
