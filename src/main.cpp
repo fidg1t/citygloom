@@ -4,6 +4,8 @@
 #include <window.h>
 #include <glad/glad.h>
 
+#define CG_COLOR_FOG 171/255.f, 174/255.f, 176/255.f, 1.f
+
 static void PrintVersion()
 {
   std::string version = std::to_string(CITYGLOOM_VERSION_MAJOR) + "." + std::to_string(CITYGLOOM_VERSION_MINOR) + "."
@@ -17,7 +19,7 @@ int main(void)
   PrintVersion();
 
   // Variable Creation
-  Cloudscape::Thunder::Window window("Citygloom", 900, 600);
+  Cloudscape::Thunder::Window window("Citygloom", 800, 600);
   SDL_GLContext glContext = SDL_GL_CreateContext(window.GetSDLWindow());
 
   gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
@@ -38,7 +40,7 @@ int main(void)
         gameIsRunning = false;
       }
 
-      glClearColor(.5f, .0f, .6f, 1.f);
+      glClearColor(CG_COLOR_FOG); // fog
       glGetError();
       glClear(GL_COLOR_BUFFER_BIT);
       SDL_GL_SwapWindow(window.GetSDLWindow());
