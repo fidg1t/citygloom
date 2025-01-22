@@ -1,26 +1,27 @@
 #include "mesh.h"
+#include <iostream>
 
 namespace Cloudscape {
 
   namespace Thunder {
   
-    Mesh::Mesh()
+    Mesh::Mesh() : m_vao(0)
     {
-        // compile shaders
+      // compile shaders
       const char* fragment_shader_text =
-          "#version 130\n\
+        "#version 460\n\
        uniform vec4 color;\
        out vec4 outColor;\
        void main(void) {\
-         outColor = color;\
+         outColor = vec4(0.8f, 0.0f, 0.6f, 1.0f);\
        }";
       GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
       glShaderSource(fshader, 1, &fragment_shader_text, 0);
       glCompileShader(fshader);
 
       const char* vertex_shader_text =
-          "#version 130\n\
-       attribute vec4 position;\
+        "#version 460\n\
+       layout (location = 0) in vec4 position;\
        void main() {\
          gl_Position = position;\
        }";
@@ -41,32 +42,36 @@ namespace Cloudscape {
       // get shader parameter locations
       m_color = glGetUniformLocation(m_shaderProgram, "color");
 
-      // Standard Square
-      m_vertices[4] = {
-        glm::vec4(-1, -1, 0, 0), // 0
-        glm::vec4(1, -1, 0, 0),  // 1
-        glm::vec4(1, 1, 0, 0),   // 2
-        glm::vec4(-1, 1, 0, 0)   // 3
+      m_vertices = {
+        glm::vec4(0.5f, 0.5f, 0.0f, 1.0f),
+        glm::vec4(0.5f, -0.5f, 0.0f, 1.0f),
+        glm::vec4(-0.5f, -0.5f, 0.0f, 1.0f),
+        glm::vec4(-0.5f, 0.5f, 0.0f, 1.0f)
       };
 
-      //// Indices for verts
-      //m_indices[0] = glm::vec3(0, 1, 3);
-      //m_indices[1] = glm::vec3(1, 2, 3);
+      m_indices = {
+          0, 1, 3,
+          1, 2, 3
+      };
 
-      // Bind VAO
+      glGenVertexArrays(1, &m_vao);
+      glGenBuffers(1, &m_vbo);
+      glGenBuffers(1, &m_ebo);
+     
       glBindVertexArray(m_vao);
 
-      // Init verts
       glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
-      glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);
+      glBufferData(GL_ARRAY_BUFFER, sizeof(glm::vec4) * m_vertices.size(), m_vertices.data(), GL_STATIC_DRAW);
 
-      //// Init edges
-      //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
-      //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(m_indices), m_indices, GL_STATIC_DRAW);
+      glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_ebo);
+      glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * m_indices.size(), m_indices.data(), GL_STATIC_DRAW);
 
-      // Init VAO
-      glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+      glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(glm::vec4), 0);
       glEnableVertexAttribArray(0);
+
+      glBindBuffer(GL_ARRAY_BUFFER, 0);
+      glBindVertexArray(0);
+
     }
 
     Mesh::~Mesh()
@@ -82,7 +87,6 @@ namespace Cloudscape {
       glUseProgram(m_shaderProgram);
       glBindVertexArray(m_vao);
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-      glBindVertexArray(0);
     }
 
   }

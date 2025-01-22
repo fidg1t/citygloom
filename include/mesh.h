@@ -1,13 +1,12 @@
 #pragma once
 
 #include <glad/glad.h>
-#include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
 namespace Cloudscape {
 
   namespace Thunder {
-  
+
     class Mesh
     {
     public:
@@ -17,8 +16,8 @@ namespace Cloudscape {
       void Render() const;
 
     private:
-      glm::vec4 m_vertices[4];
-      glm::vec3 m_indices[2];
+      std::vector<glm::vec4> m_vertices;
+      std::vector<GLuint> m_indices;
       
       GLuint m_vbo, m_ebo, m_vao, m_shaderProgram;
       GLint m_color; // Test!

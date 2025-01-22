@@ -3,6 +3,7 @@
 #include "version.h"
 #include <window.h>
 #include <glad/glad.h>
+#include <mesh.h>
 
 #define CG_COLOR_FOG 171/255.f, 174/255.f, 176/255.f, 1.f
 
@@ -22,10 +23,12 @@ int main(void)
   Cloudscape::Thunder::Window window("Citygloom", 800, 600);
   SDL_GLContext glContext = SDL_GL_CreateContext(window.GetSDLWindow());
 
+
   gladLoadGLLoader((GLADloadproc)SDL_GL_GetProcAddress);
 
   SDL_GL_MakeCurrent(window.GetSDLWindow(), glContext);
 
+  Cloudscape::Thunder::Mesh mesh;
   bool gameIsRunning = true;
 
   // Setup Parameters
@@ -43,6 +46,7 @@ int main(void)
       glClearColor(CG_COLOR_FOG); // fog
       glGetError();
       glClear(GL_COLOR_BUFFER_BIT);
+      mesh.Render();      
       SDL_GL_SwapWindow(window.GetSDLWindow());
     }
   }
