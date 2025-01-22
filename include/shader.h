@@ -10,7 +10,7 @@ namespace Cloudscape {
     class Shader
     {
     public:
-      Shader(std::string vertexShaderSource = "shader/default.vert", std::string fragmentShaderSource = "shader/default.frag");
+      Shader(std::string vertexShaderPath = "shaders/default.vert", std::string fragmentShaderPath = "shaders/default.frag");
       ~Shader();
 
       inline GLuint GetShaderProgramID() const { return m_shaderProgramID; }

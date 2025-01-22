@@ -47,3 +47,14 @@ if(WIN32)
         VERBATIM
     )
 endif()
+
+# Copy Shaders Folder
+add_custom_target(copyShaders ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_CURRENT_SOURCE_DIR}/shaders" # Source folder
+    "${CMAKE_CURRENT_BINARY_DIR}/shaders" # Destination folder
+    COMMENT "Copying shaders to build directory"
+)
+
+# Ensure shaders are copied before building the project
+add_dependencies(citygloom copyShaders)

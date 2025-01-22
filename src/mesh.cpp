@@ -1,16 +1,13 @@
 #include "mesh.h"
+#include <shader.h>
 #include <iostream>
 
 namespace Cloudscape {
 
   namespace Lightning {
   
-    Mesh::Mesh()
+    Mesh::Mesh() : m_shader(new Shader()) // <--- BAD! Get rid of (eventually!)
     {
-      
-      // get shader parameter locations
-      m_color = glGetUniformLocation(m_shader, "color");
-
       m_vertices = {
         glm::vec4(0.5f, 0.5f, 0.0f, 1.0f),
         glm::vec4(0.5f, -0.5f, 0.0f, 1.0f),
@@ -53,7 +50,7 @@ namespace Cloudscape {
 
     void Mesh::Render() const
     {
-      glUseProgram(m_shader.GetShaderProgramID());
+      glUseProgram(m_shader->GetShaderProgramID());
       glBindVertexArray(m_vao);
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
