@@ -2,7 +2,7 @@
 
 namespace Cloudscape {
 
-  namespace Thunder {
+  namespace Lightning {
 
     Window::Window(std::string name, int width, int height) : m_name(name), m_width(width), m_height(height)
     {

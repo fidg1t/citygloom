@@ -20,7 +20,7 @@ int main(void)
   PrintVersion();
 
   // Variable Creation
-  Cloudscape::Thunder::Window window("Citygloom", 800, 600);
+  Cloudscape::Lightning::Window window("Citygloom", 800, 600);
   SDL_GLContext glContext = SDL_GL_CreateContext(window.GetSDLWindow());
 
 
@@ -28,7 +28,7 @@ int main(void)
 
   SDL_GL_MakeCurrent(window.GetSDLWindow(), glContext);
 
-  Cloudscape::Thunder::Mesh mesh;
+  Cloudscape::Lightning::Mesh mesh;
   bool gameIsRunning = true;
 
   // Setup Parameters

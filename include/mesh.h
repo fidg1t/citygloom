@@ -4,8 +4,14 @@
 #include <glm/vec4.hpp>
 
 namespace Cloudscape {
+  namespace Lightning {
+    class Shader;
+  }
+}
 
-  namespace Thunder {
+namespace Cloudscape {
+
+  namespace Lightning {
 
     class Mesh
     {
@@ -19,7 +25,9 @@ namespace Cloudscape {
       std::vector<glm::vec4> m_vertices;
       std::vector<GLuint> m_indices;
       
-      GLuint m_vbo, m_ebo, m_vao, m_shaderProgram;
+      Shader* m_shader;
+
+      GLuint m_vbo, m_ebo, m_vao;
       GLint m_color; // Test!
     };
 

@@ -3,44 +3,13 @@
 
 namespace Cloudscape {
 
-  namespace Thunder {
+  namespace Lightning {
   
-    Mesh::Mesh() : m_vao(0)
+    Mesh::Mesh()
     {
-      // compile shaders
-      const char* fragment_shader_text =
-        "#version 460\n\
-       uniform vec4 color;\
-       out vec4 outColor;\
-       void main(void) {\
-         outColor = vec4(0.8f, 0.0f, 0.6f, 1.0f);\
-       }";
-      GLuint fshader = glCreateShader(GL_FRAGMENT_SHADER);
-      glShaderSource(fshader, 1, &fragment_shader_text, 0);
-      glCompileShader(fshader);
-
-      const char* vertex_shader_text =
-        "#version 460\n\
-       layout (location = 0) in vec4 position;\
-       void main() {\
-         gl_Position = position;\
-       }";
-
-      GLuint vshader = glCreateShader(GL_VERTEX_SHADER);
-      glShaderSource(vshader, 1, &vertex_shader_text, 0);
-      glCompileShader(vshader);
-
-      m_shaderProgram = glCreateProgram();
-      glAttachShader(m_shaderProgram, fshader);
-      glAttachShader(m_shaderProgram, vshader);
-      glLinkProgram(m_shaderProgram);
-      glUseProgram(m_shaderProgram);
-
-      glDeleteShader(vshader);
-      glDeleteShader(fshader);
-
+      
       // get shader parameter locations
-      m_color = glGetUniformLocation(m_shaderProgram, "color");
+      m_color = glGetUniformLocation(m_shader, "color");
 
       m_vertices = {
         glm::vec4(0.5f, 0.5f, 0.0f, 1.0f),
@@ -84,7 +53,7 @@ namespace Cloudscape {
 
     void Mesh::Render() const
     {
-      glUseProgram(m_shaderProgram);
+      glUseProgram(m_shader.GetShaderProgramID());
       glBindVertexArray(m_vao);
       glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }

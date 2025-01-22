@@ -6,7 +6,7 @@
 
 namespace Cloudscape {
 
-  namespace Thunder {
+  namespace Lightning {
 
     class Window
     {

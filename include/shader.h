@@ -5,12 +5,12 @@
 
 namespace Cloudscape {
 
-  namespace Thunder {
+  namespace Lightning {
   
     class Shader
     {
     public:
-      Shader(std::string vertexShaderSource, std::string fragmentShaderSource);
+      Shader(std::string vertexShaderSource = "shader/default.vert", std::string fragmentShaderSource = "shader/default.frag");
       ~Shader();
 
       inline GLuint GetShaderProgramID() const { return m_shaderProgramID; }
